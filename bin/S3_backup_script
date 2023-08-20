@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Load environment variables
+source .env
+
+# Get the current date in YYYY-MM-DD format
+CURRENT_DATE=$(date +'%Y-%m-%d')
+
+# Source directory and S3 bucket name
+SOURCE_DIR="/path/to/local/folder"
+S3_BUCKET_NAME="$S3_BUCKET_NAME"
+
+# Upload files to S3 with the current date as the folder name
+aws s3 sync $SOURCE_DIR s3://$S3_BUCKET_NAME/$CURRENT_DATE
