@@ -3,4 +3,12 @@
 # Load environment variables
 source .env
 
-# Function to create an EC2 instance
+# Get the current date in YYYY-MM-DD format
+CURRENT_DATE=$(date +'%Y-%m-%d')
+
+# Create an EC2 instance
+create_instance() {
+    local instance_type="$1"
+    local ami_id="$2"
+    aws ec2 run-instances --image-id "$ami_id" --instance-type "$instance_type"
+}
