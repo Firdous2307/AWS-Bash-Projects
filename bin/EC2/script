@@ -7,17 +7,27 @@ source .env
 CURRENT_DATE=$(date +'%Y-%m-%d')
 
 # Create an EC2 instance
-create_instance() {
-    aws ec2 run-instances \
-        --image-id $AMI_ID \
-        --instance-type $INSTANCE_TYPE \
-        --key-name $KEY_NAME \
-        --security-group-ids $SECURITY_GROUP_ID \
-        --subnet-id $SUBNET_ID \
-        --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE_NAME}]"
-}
+#create_instance() {
+#    aws ec2 run-instances \
+#        --image-id $AMI_ID \
+#        --instance-type $INSTANCE_TYPE \
+#        --key-name $KEY_NAME \
+#        --security-group-ids $SECURITY_GROUP_ID \
+#        --subnet-id $SUBNET_ID \
+#        --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE_NAME}]"
+#}
 
 # Call the create_instance function
-create_instance
+#create_instance
 
-echo "EC2 instance creation initiated"
+#echo "EC2 instance creation initiated"
+
+# Predefined instance ID
+instance_id=$instance_id
+
+# Stop an EC2 instance
+stop_instance() {
+    local instance_id="$1"
+    aws ec2 stop-instances --instance-ids $instance_id
+    echo "Stopping instance $instance_id"
+}
