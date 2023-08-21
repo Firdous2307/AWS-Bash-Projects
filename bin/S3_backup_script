@@ -7,7 +7,7 @@ source .env
 CURRENT_DATE=$(date +'%Y-%m-%d')
 
 # Source directory and S3 bucket name
-SOURCE_DIR="/path/to/local/folder"
+SOURCE_DIR="/workspace/AWS-Bash-projects/testing"
 S3_BUCKET_NAME="$S3_BUCKET_NAME"
 
 # Upload files to S3 with the current date as the folder name
