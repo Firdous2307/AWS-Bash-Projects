@@ -23,4 +23,32 @@ One of the safety measures I had to take was ensuring my AWS Credentials was sec
 
 
 ## Challenges 
-I had to ensure proper handling of files and permissions.This was the main challenge for me, and handling errors when creating the script for the backup process 
+I had to ensure proper handling of files and permissions.This was the main challenge for me, and handling errors when creating the script for the backup process.
+
+
+
+
+
+## EC2 Instance Script
+
+## Description:
+Creating a Bash script to manage AWS EC2 instances: list, start, stop, and create instances.
+
+## Steps:
+- I made sure to set up AWS CLI with my access and secret keys,alongside the default region.
+- Furthermore, I created the Bash script.
+- Made sure that the script was executable using  `chmod u+x ./bin/EC2/script.`
+- I ran the script: `./bin/EC2/script.`
+
+## Services Used:
+- AWS CLI
+- AWS EC2
+
+
+## Precautions:
+- I was cautuious when starting or stopping the instances to avoid accidental data loss.
+- Also, for key management, I followed the security best practices.
+
+## Challenges
+Personally, I had issues with deleting network interfaces when I launched instances, but I had to first terminate these instances before proceeding to delete the network interface.
+Furthermore, I had to add a case statement as to check the first argument ($1) provided when running the script. The value of $1 determines the operation to perform: create, start, stop, or list. This helped in performing different actions using a single script.
