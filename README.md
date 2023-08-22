@@ -9,7 +9,7 @@ Creating a Bash script that automates the backup of local files or directories t
 
 - I made sure to set up AWS CLI with my access and secret keys,alongside the default region.
 - Furthermore, I created the Bash script.
-- Made sure that the script was executable using  `chmod u+x backup_script.`
+- Made sure that the script was executable using  `chmod u+x ./bin/S3/backup_script.`
 - I ran the script: `./bin/S3/backup_script.`
 
 
