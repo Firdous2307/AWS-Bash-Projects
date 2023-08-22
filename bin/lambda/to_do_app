@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Load environment variables
+source .env
+
+# Get the current date in YYYY-MM-DD format
+CURRENT_DATE=$(date +'%Y-%m-%d')
+
+# AWS Lambda function name
+LAMBDA_FUNCTION_NAME=" "
+
+# AWS API Gateway name
+API_GATEWAY_NAME=" "
+
+# AWS DynamoDB table name
+DYNAMODB_TABLE_NAME=" "
