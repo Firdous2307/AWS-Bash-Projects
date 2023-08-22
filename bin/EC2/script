@@ -25,6 +25,19 @@ echo "EC2 instance creation initiated"
 # Instance ID
 instance_id="$instance_id"
 
+# Function to start an EC2 instance
+start_instance() {
+    local instance_id="$1"
+    aws ec2 start-instances --instance-ids $instance_id 
+}
+
+
+# Call the start instance function
+start_instance "$instance_id"
+
+echo "Starting instances $instance_id"
+
+
 # Stop an EC2 instance
 stop_instance() {
     local instance_id="$1"
@@ -34,7 +47,7 @@ stop_instance() {
 # Call the stop instance function
 stop_instance "$instance_id"
 
- echo "Stopping instance $instance_id"
+echo "Stopping instance $instance_id"
 
 # Function to list EC2 instances
 list_instances() {
@@ -45,3 +58,20 @@ list_instances() {
 list_instances 
 
 echo "List all EC2 instances:"
+
+# Case Script
+case "$1" in
+    list)
+        list_instances
+        ;;
+    start)
+        start_instance "$2"
+        ;;
+    stop)
+        stop_instance "$2"
+        ;;
+    *)
+        echo "Usage: $0 {list|start|stop}"
+        exit 1
+        ;;
+esac
