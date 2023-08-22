@@ -27,20 +27,20 @@ CURRENT_DATE=$(date +'%Y-%m-%d')
 instance_id="$instance_id"
 
 # Stop an EC2 instance
-stop_instance() {
-    local instance_id="$1"
-    aws ec2 stop-instances --instance-ids "$instance_id"
-    echo "Stopping instance $instance_id"
-}
+#stop_instance() {
+#    local instance_id="$1"
+#    aws ec2 stop-instances --instance-ids "$instance_id"
+#    echo "Stopping instance $instance_id"
+#}
 
 # Call the stop instance function
-stop_instance "$instance_id"
+#stop_instance "$instance_id"
 
 
 # Function to list EC2 instances
-#list_instances() {
-#    aws ec2 describe-instances --query "Reservations[].Instances[].[InstanceId, State.Name, InstanceType, PublicIpAddress, PrivateIpAddress, LaunchTime, Tags[?Key=='Name'].Value|[0]]" --output table
-#}
+list_instances() {
+    aws ec2 describe-instances --query "Reservations[].Instances[].[InstanceId, State.Name, InstanceType, PublicIpAddress, PrivateIpAddress, LaunchTime, Tags[?Key=='Name'].Value|[0]]" --output table
+}
 
 # Call the list_instance function
-#list_instances 
+list_instances 
