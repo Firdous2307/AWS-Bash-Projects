@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 # Load environment variables
 source .env
 
@@ -23,11 +24,23 @@ CURRENT_DATE=$(date +'%Y-%m-%d')
 #echo "EC2 instance creation initiated"
 
 # Predefined instance ID
-instance_id=$instance_id
+instance_id="$instance_id"
 
 # Stop an EC2 instance
 stop_instance() {
     local instance_id="$1"
-    aws ec2 stop-instances --instance-ids $instance_id
+    aws ec2 stop-instances --instance-ids "$instance_id"
     echo "Stopping instance $instance_id"
 }
+
+# Call the stop instance function
+stop_instance "$instance_id"
+
+
+# Function to list EC2 instances
+#list_instances() {
+#    aws ec2 describe-instances --query "Reservations[].Instances[].[InstanceId, State.Name, InstanceType, PublicIpAddress, PrivateIpAddress, LaunchTime, Tags[?Key=='Name'].Value|[0]]" --output table
+#}
+
+# Call the list_instance function
+#list_instances 
