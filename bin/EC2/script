@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # Load environment variables
 source .env
 
@@ -8,34 +7,34 @@ source .env
 CURRENT_DATE=$(date +'%Y-%m-%d')
 
 # Create an EC2 instance
-#create_instance() {
-#    aws ec2 run-instances \
-#        --image-id $AMI_ID \
-#        --instance-type $INSTANCE_TYPE \
-#        --key-name $KEY_NAME \
-#        --security-group-ids $SECURITY_GROUP_ID \
-#        --subnet-id $SUBNET_ID \
-#        --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE_NAME}]"
-#}
+create_instance() {
+    aws ec2 run-instances \
+        --image-id $AMI_ID \
+        --instance-type $INSTANCE_TYPE \
+        --key-name $KEY_NAME \
+        --security-group-ids $SECURITY_GROUP_ID \
+        --subnet-id $SUBNET_ID \
+        --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$INSTANCE_NAME}]"
+}
 
 # Call the create_instance function
-#create_instance
+create_instance
 
-#echo "EC2 instance creation initiated"
+echo "EC2 instance creation initiated"
 
-# Predefined instance ID
+# Instance ID
 instance_id="$instance_id"
 
 # Stop an EC2 instance
-#stop_instance() {
-#    local instance_id="$1"
-#    aws ec2 stop-instances --instance-ids "$instance_id"
-#    echo "Stopping instance $instance_id"
-#}
+stop_instance() {
+    local instance_id="$1"
+    aws ec2 stop-instances --instance-ids "$instance_id"
+}
 
 # Call the stop instance function
-#stop_instance "$instance_id"
+stop_instance "$instance_id"
 
+ echo "Stopping instance $instance_id"
 
 # Function to list EC2 instances
 list_instances() {
@@ -44,3 +43,5 @@ list_instances() {
 
 # Call the list_instance function
 list_instances 
+
+echo "List all EC2 instances:"
