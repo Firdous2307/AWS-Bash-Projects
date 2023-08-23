@@ -10,10 +10,10 @@ CURRENT_DATE=$(date +'%Y-%m-%d')
 #LAMBDA_FUNCTION_NAME="$FUNCTION_NAME"
 
 # AWS API Gateway name
-#API_GATEWAY_NAME=" "
+API_GATEWAY_NAME="$API_GATEWAY_NAME"
 
 # AWS DynamoDB table name
-DYNAMODB_TABLE_NAME="$TABLE_NAME"
+#DYNAMODB_TABLE_NAME="$TABLE_NAME"
 
 # Deploy Lambda function
 #aws lambda create-function \
@@ -25,8 +25,13 @@ DYNAMODB_TABLE_NAME="$TABLE_NAME"
 
 
 # Create DynamoDB table
-aws dynamodb create-table \
-    --table-name "$TABLE_NAME" \
-    --attribute-definitions AttributeName="$PARTITION_KEY",AttributeType=S \
-    --key-schema AttributeName="$PARTITION_KEY",KeyType=HASH \
-    --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5
+#aws dynamodb create-table \
+#    --table-name "$TABLE_NAME" \
+#    --attribute-definitions AttributeName="$PARTITION_KEY",AttributeType=S \
+#    --key-schema AttributeName="$PARTITION_KEY",KeyType=HASH \
+#    --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5
+
+
+# Create a Gateway REST API
+api_id=$(aws apigateway create-rest-api --name $API_GATEWAY_NAME --query 'id' --output text)
+
