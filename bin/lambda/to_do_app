@@ -33,5 +33,9 @@ API_GATEWAY_NAME="$API_GATEWAY_NAME"
 
 
 # Create a Gateway REST API
-api_id=$(aws apigateway create-rest-api --name $API_GATEWAY_NAME --query 'id' --output text)
+#api_id=$(aws apigateway create-rest-api --name $API_GATEWAY_NAME --query 'id' --output text)
+
+
+# Get the root resource ID
+root_resource_id=$(aws apigateway get-resources --rest-api-id $api_id --query 'items[0].id' --output text)
 
