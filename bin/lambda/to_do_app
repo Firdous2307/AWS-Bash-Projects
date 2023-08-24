@@ -39,6 +39,8 @@ API_GATEWAY_NAME="$API_GATEWAY_NAME"
 # Get the root resource ID
 #root_resource_id=$(aws apigateway get-resources --rest-api-id $api_id --query 'items[0].id' --output text)
 
-
 # Creating a resource under the root resource
-resource_id=$(aws apigateway create-resource --rest-api-id $api_id --parent-id $root_resource_id --path-part {proxy+} --query 'id' --output text)
+#resource_id=$(aws apigateway create-resource --rest-api-id $api_id --parent-id $root_resource_id --path-part {proxy+} --query 'id' --output text)
+
+# Creating a POST method for the resource
+aws apigateway put-method --rest-api-id $api_id --resource-id $resource_id --http-method POST --authorization-type NONE
