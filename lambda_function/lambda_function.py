@@ -1,5 +1,11 @@
 import json
 import boto3
+import logging
+
+# Logging
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
 
 # Initializing the DynamoDB client
 dynamodb = boto3.client('dynamodb')
@@ -7,10 +13,10 @@ dynamodb = boto3.client('dynamodb')
 def lambda_handler(event, context):
     try:
         http_method = event['httpMethod']
-        table_name = ToDOApp
+        table_name = "ToDOApp"
         
         if http_method == 'GET':
-            response = dynamodb.scan(TableName=ToDOApp)
+            response = dynamodb.scan(TableName='ToDOApp')
             items = response.get('Items', [])
             
             return {
@@ -31,7 +37,7 @@ def lambda_handler(event, context):
                 'task': {'S': request_body['task']}
             }
             
-            dynamodb.put_item(TableName=ToDOApp, Item=new_item)
+            dynamodb.put_item(TableName='ToDOApp', Item=new_item)
             
             return {
                 "statusCode": 201,
