@@ -52,3 +52,19 @@ Creating a Bash script to manage AWS EC2 instances: list, start, stop, and creat
 ## Challenges
 Personally, I had issues with deleting network interfaces when I launched instances, but I had to first terminate these instances before proceeding to delete the network interface.
 Furthermore, I had to add a case statement as to check the first argument ($1) provided when running the script. The value of $1 determines the operation to perform: create, start, stop, or list. This helped in performing different actions using a single script.
+
+
+
+
+
+## Serverless To-DO-List Application 
+
+## Description:
+In this project, the bash script automates the creation and deployment of the serverless to-do list application.
+
+## Services Used:
+- AWS CLI
+- AWS Lambda
+- AWS DynamoDB
+- AWS API Gateway
+- AWS S3 
