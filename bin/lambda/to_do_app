@@ -54,5 +54,5 @@ CURRENT_DATE=$(date +'%Y-%m-%d')
 # Deploy the API
 #deployment_id=$(aws apigateway create-deployment --rest-api-id $api_id --stage-name prod --query 'id' --output text)
 
-# Test Invoke Method
+# Testing Invoke Method
 #aws apigateway test-invoke-method --rest-api-id $api_id --resource-id $resource_id --http-method POST --path-with-query-string "" --body "{}"
