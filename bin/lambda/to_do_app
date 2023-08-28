@@ -52,4 +52,7 @@ CURRENT_DATE=$(date +'%Y-%m-%d')
 #    --integration-http-method POST --uri arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:"$AWS_ACCOUNT_ID":function:"$FUNCTION_NAME"/invocations
 
 # Deploy the API
-deployment_id=$(aws apigateway create-deployment --rest-api-id $api_id --stage-name prod --query 'id' --output text)
+#deployment_id=$(aws apigateway create-deployment --rest-api-id $api_id --stage-name prod --query 'id' --output text)
+
+# Test Invoke Method
+#aws apigateway test-invoke-method --rest-api-id $api_id --resource-id $resource_id --http-method POST --path-with-query-string "" --body "{}"
