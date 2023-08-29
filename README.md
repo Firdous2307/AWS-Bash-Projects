@@ -25,8 +25,13 @@ One of the safety measures I had to take was ensuring my AWS Credentials was sec
 ## Challenges 
 I had to ensure proper handling of files and permissions.This was the main challenge for me, and handling errors when creating the script for the backup process.
 
+## Proof of Implementation
+After running the `./bin/S3/backup_script.` The upload was successful.
+![Proof of Implementation](proof/S3-images/script.png)
 
-
+ In addition, I had to check the S3 bucket to make sure it was actually uploaded  
+![Proof of Implementation](proof/S3-images/S3(1).png)
+![Proof of Implementation](proof/S3-images/S3(2).png)
 
 
 ## EC2 Instance Script
