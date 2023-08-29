@@ -1,13 +1,7 @@
 import json
 import boto3
-import logging
-
-# Logging
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
 
 
-# Initializing the DynamoDB client
 dynamodb = boto3.client('dynamodb')
 
 def lambda_handler(event, context):
