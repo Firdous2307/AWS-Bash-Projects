@@ -60,7 +60,8 @@ Furthermore, I had to add a case statement as to check the first argument ($1) p
 ## Serverless To-DO-List Application 
 
 ## Description:
-In this project, the bash script automates the creation and deployment of the serverless to-do list application.
+In this project, the bash script automates the creation and deployment of the serverless to-do list application.It deploys an AWS Lambda function for handling POST AND GET operations, sets up an Amazon DynamoDB table to store the to-do items, creates an API Gateway to expose the Lambda function via a RESTful API, and deploys the API to a production stage.
+
 
 ## Services Used:
 - AWS CLI
