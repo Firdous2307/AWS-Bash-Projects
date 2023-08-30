@@ -51,9 +51,7 @@ API_GATEWAY_NAME="$API_GATEWAY_NAME"
 #aws apigateway put-method --rest-api-id $api_id --resource-id $resource_id --http-method PATCH --authorization-type NONE
 
 # Creating a DELETE method for the resource
-aws apigateway put-method --rest-api-id $api_id --resource-id $resource_id --http-method DELETE --authorization-type NONE
-
-
+#aws apigateway put-method --rest-api-id $api_id --resource-id $resource_id --http-method DELETE --authorization-type NONE
 
 # Create Method Response
 #aws apigateway put-method-response --rest-api-id $api_id --resource-id $resource_id --http-method POST --status-code 200 --response-models "{\"application/json\": \"Empty\"}"
@@ -61,6 +59,19 @@ aws apigateway put-method --rest-api-id $api_id --resource-id $resource_id --htt
 # Integrate the Lambda function with POST method
 #aws apigateway put-integration --rest-api-id $api_id --resource-id $resource_id --http-method POST --type AWS_PROXY \
 #    --integration-http-method POST --uri arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:"$AWS_ACCOUNT_ID":function:"$FUNCTION_NAME"/invocations
+
+# Integrate the Lambda function with GET method
+#aws apigateway put-integration --rest-api-id $api_id --resource-id $resource_id --http-method POST --type AWS_PROXY \
+#    --integration-http-method GET --uri arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:"$AWS_ACCOUNT_ID":function:"$FUNCTION_NAME"/invocations
+
+# Integrate the Lambda function with PATCH method
+#aws apigateway put-integration --rest-api-id $api_id --resource-id $resource_id --http-method POST --type AWS_PROXY \
+#    --integration-http-method PATCH --uri arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:"$AWS_ACCOUNT_ID":function:"$FUNCTION_NAME"/invocations
+
+# Integrate the Lambda function with DELETE method
+#aws apigateway put-integration --rest-api-id $api_id --resource-id $resource_id --http-method POST --type AWS_PROXY \
+#    --integration-http-method DELETE --uri arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:"$AWS_ACCOUNT_ID":function:"$FUNCTION_NAME"/invocations
+
 
 # Deploy the API
 #deployment_id=$(aws apigateway create-deployment --rest-api-id $api_id --stage-name prod --query 'id' --output text)
