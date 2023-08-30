@@ -1,42 +1,52 @@
 import boto3
 import json
 
-# Initializing DynamoDB resource and table
-dynamodb_table_name = "TODOApp"  
+dynamodb_table_name = "TODOApp"
 dynamodb = boto3.resource("dynamodb")
 
+
 def lambda_handler(event, context):
-    # Extracting relevant information from the event
-    http_method = event["httpMethod"]
-    item_id = event["queryStringParameters"]["user-id"] 
+    http_method = event.get("httpMethod")
+    query_parameters = event.get("queryStringParameters", {})
+    item_id = query_parameters.get("user-id", None)
     
-    if http_method == "GET":
-        response = table.get_item(Key={"user-id": item_id}) 
+    if http_method == "GET" and item_id is not None:
+        response = table.get_item(Key={"user-id": item_id})
         if "Item" in response:
             return build_response(200, response["Item"])
         else:
             return build_response(404, {"Message": "Item not found"})
     elif http_method == "POST":
-        # Creating a new item in the table with the provided data
+        request_body = json.loads(event.get("body", "{}"))
         table.put_item(Item={**{"user-id": item_id}, **request_body})
-        return {"statusCode": 200, "body": json.dumps({"Message": "Item created"})}
-
+        return build_response(200, {"Message": "Item created"})
     elif http_method == "PATCH":
-        # Updating a specific attribute of an item       
-        request_body = json.loads(event["body"])
-        response = table.update_item(
-            Key={"user-id": item_id}, 
-            UpdateExpression=f"set {request_body['updateKey']} = :value",
-            ExpressionAttributeValues={":value": update_value},
-            ReturnValues="UPDATED"
-        )
+        request_body = json.loads(event.get("body", "{}"))
+        update_key = request_body.get("updateKey")
+        update_value = request_body.get("updateValue")
         
-        return {"statusCode": 200, "body": json.dumps({"Message": "Item updated", "UpdatedAttributes": response})}
-    elif http_method == "DELETE":
-        # Deleting an item from the table
-        response = table.delete_item(Key={"user-id": item_id}) 
-        return {"statusCode": 200, "body": json.dumps({"Message": "Item deleted", "DeletedItem": response})}
+        if item_id is not None and update_key is not None and update_value is not None:
+            response = table.update_item(
+                Key={"user-id": item_id},
+                UpdateExpression=f"set {update_key} = :value",
+                ExpressionAttributeValues={":value": update_value},
+                ReturnValues="UPDATED"
+            )
+            return build_response(200, {"Message": "Item updated", "UpdatedAttributes": response})
+        else:
+            return build_response(400, {"Message": "Invalid PATCH request"})
+    elif http_method == "DELETE" and item_id is not None:
+        response = table.delete_item(Key={"user-id": item_id})
+        return build_response(200, {"Message": "Item deleted", "DeletedItem": response})
     else:
-        # Handle invalid operations
-        return {"statusCode": 400, "body": json.dumps({"Message": "Invalid operation"})}
+        return build_response(400, {"Message": "Invalid operation"})
 
+def build_response(status_code, body):
+    return {
+        "statusCode": status_code,
+        "headers": {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+        },
+        "body": json.dumps(body)
+    }
