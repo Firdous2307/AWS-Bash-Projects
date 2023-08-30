@@ -74,7 +74,7 @@ API_GATEWAY_NAME="$API_GATEWAY_NAME"
 
 
 # Deploy the API
-#deployment_id=$(aws apigateway create-deployment --rest-api-id $api_id --stage-name prod --query 'id' --output text)
+#deployment_id=$(aws apigateway create-deployment --rest-api-id $api_id --stage-name prod)
 
 # Testing Invoke Method
 #aws apigateway test-invoke-method --rest-api-id $api_id --resource-id $resource_id --http-method POST --path-with-query-string "" --body "{}"
