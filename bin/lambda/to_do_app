@@ -61,15 +61,15 @@ API_GATEWAY_NAME="$API_GATEWAY_NAME"
 #    --integration-http-method POST --uri arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:"$AWS_ACCOUNT_ID":function:"$FUNCTION_NAME"/invocations
 
 # Integrate the Lambda function with GET method
-#aws apigateway put-integration --rest-api-id $api_id --resource-id $resource_id --http-method POST --type AWS_PROXY \
+#aws apigateway put-integration --rest-api-id $api_id --resource-id $resource_id --http-method GET --type AWS_PROXY \
 #    --integration-http-method GET --uri arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:"$AWS_ACCOUNT_ID":function:"$FUNCTION_NAME"/invocations
 
 # Integrate the Lambda function with PATCH method
-#aws apigateway put-integration --rest-api-id $api_id --resource-id $resource_id --http-method POST --type AWS_PROXY \
+#aws apigateway put-integration --rest-api-id $api_id --resource-id $resource_id --http-method PATCH --type AWS_PROXY \
 #    --integration-http-method PATCH --uri arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:"$AWS_ACCOUNT_ID":function:"$FUNCTION_NAME"/invocations
 
 # Integrate the Lambda function with DELETE method
-#aws apigateway put-integration --rest-api-id $api_id --resource-id $resource_id --http-method POST --type AWS_PROXY \
+#aws apigateway put-integration --rest-api-id $api_id --resource-id $resource_id --http-method DELETE --type AWS_PROXY \
 #    --integration-http-method DELETE --uri arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:"$AWS_ACCOUNT_ID":function:"$FUNCTION_NAME"/invocations
 
 
