@@ -10,7 +10,7 @@ CURRENT_DATE=$(date +'%Y-%m-%d')
 #LAMBDA_FUNCTION_NAME="$FUNCTION_NAME"
 
 # AWS API Gateway name
-#API_GATEWAY_NAME="$API_GATEWAY_NAME"
+API_GATEWAY_NAME="$API_GATEWAY_NAME"
 
 # AWS DynamoDB table name
 #DYNAMODB_TABLE_NAME="$TABLE_NAME"
@@ -39,10 +39,10 @@ CURRENT_DATE=$(date +'%Y-%m-%d')
 #root_resource_id=$(aws apigateway get-resources --rest-api-id $api_id --query 'items[0].id' --output text)
 
 # Creating a resource under the root resource
-#resource_id=$(aws apigateway create-resource --rest-api-id $api_id --parent-id $root_resource_id --path-part {proxy+} --query 'id' --output text)
+#resource_id=$(aws apigateway create-resource --rest-api-id $api_id --parent-id $root_resource_id --path-part item)
 
 # Creating a POST method for the resource
-#aws apigateway put-method --rest-api-id $api_id --resource-id $resource_id --http-method POST --authorization-type NONE
+aws apigateway put-method --rest-api-id $api_id --resource-id $resource_id --http-method POST --authorization-type NONE
 
 # Create Method Response
 #aws apigateway put-method-response --rest-api-id $api_id --resource-id $resource_id --http-method POST --status-code 200 --response-models "{\"application/json\": \"Empty\"}"
@@ -55,4 +55,4 @@ CURRENT_DATE=$(date +'%Y-%m-%d')
 #deployment_id=$(aws apigateway create-deployment --rest-api-id $api_id --stage-name prod --query 'id' --output text)
 
 # Testing Invoke Method
-aws apigateway test-invoke-method --rest-api-id $api_id --resource-id $resource_id --http-method POST --path-with-query-string "" --body "{}"
+#aws apigateway test-invoke-method --rest-api-id $api_id --resource-id $resource_id --http-method POST --path-with-query-string "" --body "{}"
