@@ -42,7 +42,18 @@ API_GATEWAY_NAME="$API_GATEWAY_NAME"
 #resource_id=$(aws apigateway create-resource --rest-api-id $api_id --parent-id $root_resource_id --path-part item)
 
 # Creating a POST method for the resource
-aws apigateway put-method --rest-api-id $api_id --resource-id $resource_id --http-method POST --authorization-type NONE
+#aws apigateway put-method --rest-api-id $api_id --resource-id $resource_id --http-method POST --authorization-type NONE
+
+# Creating a GET method for the resource
+#aws apigateway put-method --rest-api-id $api_id --resource-id $resource_id --http-method GET --authorization-type NONE
+
+# Creating a PATCH method for the resource
+#aws apigateway put-method --rest-api-id $api_id --resource-id $resource_id --http-method PATCH --authorization-type NONE
+
+# Creating a DELETE method for the resource
+aws apigateway put-method --rest-api-id $api_id --resource-id $resource_id --http-method DELETE --authorization-type NONE
+
+
 
 # Create Method Response
 #aws apigateway put-method-response --rest-api-id $api_id --resource-id $resource_id --http-method POST --status-code 200 --response-models "{\"application/json\": \"Empty\"}"
