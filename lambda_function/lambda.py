@@ -7,16 +7,14 @@ table = dynamodb.Table(dynamodb_table_name)
 
 def lambda_handler(event, context):
     http_method = event.get("httpMethod")
-    resource_path = event.get("path")
-    
+    resource_path = event.get("resource")  
+
     if http_method == "GET" and resource_path == "/item":
-        response = get_all_items()
-    elif http_method == "GET" and resource_path == "/item":
         item_id = event.get("queryStringParameters", {}).get("user-id", None)
         if item_id is not None:
             response = get_item(item_id)
         else:
-            response = build_response(400, {"Message": "Invalid GET request"})
+            response = get_all_items()
     elif http_method == "POST" and resource_path == "/item":
         request_body = json.loads(event.get("body", "{}"))
         response = create_item(request_body)
