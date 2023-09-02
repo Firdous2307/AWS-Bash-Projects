@@ -46,16 +46,16 @@ API_GATEWAY_NAME="$API_GATEWAY_NAME"
 
 
 # Creating a POST method for the resource
-#aws apigateway put-method --rest-api-id $api_id --resource-id $resource_id --http-method POST --authorization-type NONE
+aws apigateway put-method --rest-api-id $api_id --resource-id $resource_id --http-method POST --authorization-type NONE
 
 # Creating a GET method for the resource
-#aws apigateway put-method --rest-api-id $api_id --resource-id $resource_id --http-method GET --authorization-type NONE
+aws apigateway put-method --rest-api-id $api_id --resource-id g9t7s9 --http-method GET --authorization-type NONE
 
 # Creating a PATCH method for the resource
-#aws apigateway put-method --rest-api-id $api_id --resource-id $resource_id --http-method PATCH --authorization-type NONE
+aws apigateway put-method --rest-api-id $api_id --resource-id $resource_id --http-method PATCH --authorization-type NONE
 
 # Creating a DELETE method for the resource
-#aws apigateway put-method --rest-api-id $api_id --resource-id $resource_id --http-method DELETE --authorization-type NONE
+aws apigateway put-method --rest-api-id $api_id --resource-id $resource_id --http-method DELETE --authorization-type NONE
 
 # Integrate the Lambda function with POST method
 #aws apigateway put-integration --rest-api-id "$api_id" --resource-id "$resource_id" --http-method POST --type AWS_PROXY \
