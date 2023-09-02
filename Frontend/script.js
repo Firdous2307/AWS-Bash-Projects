@@ -96,8 +96,7 @@ function updateTask() {
 // Function to delete a task via DELETE request
 function deleteTask() {
     // Get task name to delete
-    const taskToDelete = 'task_name'; // Replace with the task name you want to delete
-
+    const taskToDelete = 'task_name'; 
     // Create request object
     const xhr = new XMLHttpRequest();
 
