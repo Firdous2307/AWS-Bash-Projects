@@ -46,44 +46,33 @@ API_GATEWAY_NAME="$API_GATEWAY_NAME"
 
 
 # Creating a POST method for the resource
-aws apigateway put-method --rest-api-id $api_id --resource-id $resource_id --http-method POST --authorization-type NONE
+#aws apigateway put-method --rest-api-id $api_id --resource-id $resource_id --http-method POST --authorization-type NONE
 
 # Creating a GET method for the resource
-aws apigateway put-method --rest-api-id $api_id --resource-id g9t7s9 --http-method GET --authorization-type NONE
+#aws apigateway put-method --rest-api-id $api_id --resource-id g9t7s9 --http-method GET --authorization-type NONE
 
 # Creating a PATCH method for the resource
-aws apigateway put-method --rest-api-id $api_id --resource-id $resource_id --http-method PATCH --authorization-type NONE
+#aws apigateway put-method --rest-api-id $api_id --resource-id $resource_id --http-method PATCH --authorization-type NONE
 
 # Creating a DELETE method for the resource
-aws apigateway put-method --rest-api-id $api_id --resource-id $resource_id --http-method DELETE --authorization-type NONE
+#aws apigateway put-method --rest-api-id $api_id --resource-id $resource_id --http-method DELETE --authorization-type NONE
 
 # Integrate the Lambda function with POST method
-#aws apigateway put-integration --rest-api-id "$api_id" --resource-id "$resource_id" --http-method POST --type AWS_PROXY \
-#    --integration-http-method POST --uri arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:"$AWS_ACCOUNT_ID":function:"$FUNCTION_NAME"/invocations
+aws apigateway put-integration --rest-api-id "$api_id" --resource-id dzl5hl --http-method POST --type AWS_PROXY \
+    --integration-http-method POST --uri arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:"$AWS_ACCOUNT_ID":function:"$FUNCTION_NAME"/invocations
 
 # Integrate the Lambda function with GET method
-#aws apigateway put-integration --rest-api-id "$api_id" --resource-id "$resource_id" --http-method GET --type AWS_PROXY \
-#    --integration-http-method GET --uri arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:"$AWS_ACCOUNT_ID":function:"$FUNCTION_NAME"/invocations
+aws apigateway put-integration --rest-api-id "$api_id" --resource-id g9t7s9 --http-method GET --type AWS_PROXY \
+    --integration-http-method GET --uri arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:"$AWS_ACCOUNT_ID":function:"$FUNCTION_NAME"/invocations
 
 # Integrate the Lambda function with PATCH method
-#aws apigateway put-integration --rest-api-id "$api_id" --resource-id "$resource_id" --http-method PATCH --type AWS_PROXY \
-#    --integration-http-method PATCH --uri arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:"$AWS_ACCOUNT_ID":function:"$FUNCTION_NAME"/invocations
+aws apigateway put-integration --rest-api-id "$api_id" --resource-id i97kqt --http-method PATCH --type AWS_PROXY \
+    --integration-http-method PATCH --uri arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:"$AWS_ACCOUNT_ID":function:"$FUNCTION_NAME"/invocations
 
 # Integrate the Lambda function with DELETE method
-#aws apigateway put-integration --rest-api-id "$api_id" --resource-id "$resource_id" --http-method DELETE --type AWS_PROXY \
-#    --integration-http-method DELETE --uri arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:"$AWS_ACCOUNT_ID":function:"$FUNCTION_NAME"/invocations
+aws apigateway put-integration --rest-api-id "$api_id" --resource-id r64zch --http-method DELETE --type AWS_PROXY \
+    --integration-http-method DELETE --uri arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:"$AWS_ACCOUNT_ID":function:"$FUNCTION_NAME"/invocations
 
-# Create method responses for POST
-#aws apigateway put-method-response --rest-api-id "$api_id" --resource-id "$resource_id" --http-method POST --status-code "201" --response-models '{"application/json":"CreatedResponse"}' --status-code "500" --response-models '{"application/json":"ErrorResponse"}'
-
-# Create method responses for GET
-#aws apigateway put-method-response --rest-api-id "$api_id" --resource-id "$resource_id" --http-method "GET" --status-code "200" --response-models '{"application/json":"ItemResponse"}' --status-code "404" --response-models '{"application/json":"ErrorResponse"}' --status-code "500" --response-models '{"application/json":"ErrorResponse"}'
-
-# Create method responses for PATCH
-#aws apigateway put-method-response --rest-api-id "$api_id" --resource-id "$resource_id" --http-method "PATCH" --status-code "200" --response-models '{"application/json":"ItemResponse"}' --status-code "400" --response-models '{"application/json":"ErrorResponse"}' --status-code "500" --response-models '{"application/json":"ErrorResponse"}'
-
-# Create method responses for DELETE
-#aws apigateway put-method-response --rest-api-id "$api_id" --resource-id "$resource_id" --http-method "DELETE" --status-code "200" --response-models '{"application/json":"DeletedResponse"}' --status-code "400" --response-models '{"application/json":"ErrorResponse"}' --status-code "500" --response-models '{"application/json":"ErrorResponse"}'
 
 
 
