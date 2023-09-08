@@ -11,7 +11,7 @@ function submitForm(event) {
     const xhr = new XMLHttpRequest();
 
     // Set up request
-    xhr.open('POST', 'https://e2vjdjotya.execute-api.us-east-2.amazonaws.com/prod/addtask', true);
+    xhr.open('POST', '/addtask', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     // Set up response handler
