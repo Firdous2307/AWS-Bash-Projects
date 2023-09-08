@@ -16,12 +16,12 @@ API_GATEWAY_NAME="$API_GATEWAY_NAME"
 #DYNAMODB_TABLE_NAME="$TABLE_NAME"
 
 # Deploy Lambda function
-#aws lambda create-function \
-#    --function-name "$FUNCTION_NAME" \
-#    --runtime python3.9 \
-#    --handler lambda.lambda_handler \
-#    --role arn:aws:iam::"$ACCOUNT_ID":role/my-lambda-role \
-#    --code S3Bucket=my-lambda-bucket-01,S3Key=lambda-essentials.zip
+aws lambda create-function \
+    --function-name "$FUNCTION_NAME" \
+    --runtime python3.9 \
+    --handler lambda.lambda_handler \
+    --role arn:aws:iam::"$ACCOUNT_ID":role/ToDoListRole \
+    --code S3Bucket=my-lambda-bucket-01,S3Key=lambda-essentials.zip
 
 # Create DynamoDB table
 #aws dynamodb create-table \
@@ -32,23 +32,23 @@ API_GATEWAY_NAME="$API_GATEWAY_NAME"
 
 
 # Create a Gateway REST API
-#api_id=$(aws apigateway create-rest-api --name $API_GATEWAY_NAME --query 'id' --output text)
+api_id=$(aws apigateway create-rest-api --name $API_GATEWAY_NAME )
 
 
 # Get the root resource ID
-#root_resource_id=$(aws apigateway get-resources --rest-api-id $api_id --query 'items[0].id' --output text)
+root_resource_id=$(aws apigateway get-resources --rest-api-id $api_id)
 
 # Creating a resource under the root resource
-#resource_id=$(aws apigateway create-resource --rest-api-id $api_id --parent-id $root_resource_id --path-part addTask)
+resource_id=$(aws apigateway create-resource --rest-api-id $api_id --parent-id $root_resource_id --path-part addtask)
 
 
-# Creating a POST method for the resource
-#aws apigateway put-method --rest-api-id "$api_id" --resource-id "$resource_id" --http-method POST --authorization-type NONE
+#Creating a POST method for the resource
+aws apigateway put-method --rest-api-id "$api_id" --resource-id "$resource_id" --http-method POST --authorization-type NONE
 
 
 # Integrate the Lambda function with POST method
-#aws apigateway put-integration --rest-api-id "$api_id" --resource-id  4nvrh3 --http-method POST --type AWS \
-#    --integration-http-method POST --uri arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:"$AWS_ACCOUNT_ID":function:"$FUNCTION_NAME"/invocations
+aws apigateway put-integration --rest-api-id "$api_id" --resource-id  "$resource_id" --http-method POST --type AWS \
+    --integration-http-method POST --uri arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:"$AWS_ACCOUNT_ID":function:"$FUNCTION_NAME"/invocations
 
 
 # Deploy the API

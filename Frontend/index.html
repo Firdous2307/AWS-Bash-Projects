@@ -8,11 +8,11 @@
     <div class="container">
         <h1 class="italic-heading">To-Do List</h1>
         <form>
+            <label for="task_id">Task Id</label>
+            <input type="number" id="task_id" name="task_id" pattern="[0-9]{10}" required>
+
             <label for="task">Task</label>
             <input type="text" id="task" name="task" required>
-
-            <label for="deadline">Deadline</label>
-            <input type="date" id="deadline" name="deadline" required>
 
             <label for="priority">Priority</label>
             <select id="priority" name="priority" required>
