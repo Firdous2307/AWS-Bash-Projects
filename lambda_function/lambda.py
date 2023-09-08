@@ -19,7 +19,7 @@ def lambda_handler(event, context):
                 'priority': priority
             }
         )
-        
+
         # Return a success response
         return {
             'statusCode': 200,
@@ -40,4 +40,3 @@ def lambda_handler(event, context):
             },
             'body': json.dumps({'error': error_message})
         }
-    
