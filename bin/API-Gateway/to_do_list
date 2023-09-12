@@ -13,7 +13,7 @@ LAMBDA_FUNCTION_NAME="$FUNCTION_NAME"
 API_GATEWAY_NAME="$API_GATEWAY_NAME"
 
 # AWS DynamoDB table name
-#DYNAMODB_TABLE_NAME="$TABLE_NAME"
+DYNAMODB_TABLE_NAME="$TABLE_NAME"
 
 # Deploy Lambda function
 aws lambda create-function \
