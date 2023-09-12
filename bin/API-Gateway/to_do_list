@@ -7,7 +7,7 @@ source .env
 CURRENT_DATE=$(date +'%Y-%m-%d')
 
 # AWS Lambda function name
-#LAMBDA_FUNCTION_NAME="$FUNCTION_NAME"
+LAMBDA_FUNCTION_NAME="$FUNCTION_NAME"
 
 # AWS API Gateway name
 API_GATEWAY_NAME="$API_GATEWAY_NAME"
@@ -24,11 +24,11 @@ aws lambda create-function \
     --code S3Bucket=my-lambda-bucket-01,S3Key=lambda-essentials.zip
 
 # Create DynamoDB table
-#aws dynamodb create-table \
-#    --table-name "$TABLE_NAME" \
-#    --attribute-definitions AttributeName="$PARTITION_KEY",AttributeType=S \
-#    --key-schema AttributeName="$PARTITION_KEY",KeyType=HASH \
-#    --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5
+aws dynamodb create-table \
+    --table-name "$TABLE_NAME" \
+    --attribute-definitions AttributeName="$PARTITION_KEY",AttributeType=S \
+    --key-schema AttributeName="$PARTITION_KEY",KeyType=HASH \
+    --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5
 
 
 # Create a Gateway REST API
