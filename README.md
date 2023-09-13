@@ -34,6 +34,9 @@ After running the `./bin/S3/backup_script.` The upload was successful.
 ![Proof of Implementation](proof/S3-images/S3(2).png)
 
 
+[S3-BackupScript](https://github.com/Firdous2307/AWS-Bash-Projects/blob/main/bin/S3/backup_script)
+
+
 ##  2. EC2 Instance Script
 
 ## Description:
@@ -95,10 +98,14 @@ For listing all the Instances, this was made possible by going through AWS Docum
 
 
 
+[EC2-Script](https://github.com/Firdous2307/AWS-Bash-Projects/blob/main/bin/EC2/script)
+
+
+
 ## 3. Serverless To-DO-List Application 
 
 ## Description:
-In this project, the bash script automates the creation and deployment of the serverless to-do list application.It deploys an AWS Lambda function for handling POST AND GET operations, sets up an Amazon DynamoDB table to store the to-do items, creates an API Gateway to expose the Lambda function via a RESTful API, and deploys the API to a production stage.
+In this project, the bash script automates the creation and deployment of the serverless to-do list application.It deploys an AWS Lambda function for handling POST operation, sets up an Amazon DynamoDB table to store the to-do items, creates an API Gateway to expose the Lambda function via a RESTful API, and deploys the API to a production stage.
 
 
 ## Services Used:
@@ -106,4 +113,117 @@ In this project, the bash script automates the creation and deployment of the se
 - AWS Lambda
 - AWS DynamoDB
 - AWS API Gateway
-- AWS S3 
+- AWS S3
+- -AWS IAM
+
+
+## Precautions:
+- I made sure to use environment variables to protect my credentials from being accessed by everyone.
+- In IAM, I had to select the appropriate permission policies for the role to be created which I named as `ToDoListRole`.
+
+## Challenges
+ - Personally, I had to decide between creating a GET method to go with the POST method that I have already created, but I might revisit that later.
+ - I had to also decide between using a task form which involved using `index.html`, `script.js`, and `style.css`. Therefore, I decided to test my API using Postman and it returned an item in the Dynamo DB Table.
+ - I made a lot of changes in my lambda function called `lambda.py`.
+ - Also since I am using Bash scripts, I had to first write my lambda function in python ,zip it and store it to an S3 Bucket before I could deploy my lambda function.
+
+  ```
+   --code S3Bucket=my-lambda-bucket-01,S3Key=lambda-essentials.zip
+ ```
+
+![Proof of Implementation](proof/api-gateway-images/IAM.png)
+
+## Proof of Implementation
+Before running the `bin/API-Gateway/to_do_list` script, I had to ensure that I stored environment variables of the following;
+```
+$FUNCTION_NAME
+$API_GATEWAY_NAME
+$TABLE_NAME
+ACCOUNT_ID
+$PARTITION_KEY
+$api_id
+$root_resource_id
+$resource_id
+```
+
+Zipped the lambda function written in python and named it `lambda-essentials`
+![Proof of Implementation](proof/api-gateway-images/lambda-essentials-script.png)
+
+I had to check my Console in my S3 buckets to be sure this process was successful
+![Proof of Implementation](proof/api-gateway-images/lambda-essentials-backup.png)
+
+
+To create the Lambda-Function,  
+  ```
+ aws lambda create-function \
+    --function-name "$FUNCTION_NAME" \
+    --runtime python3.9 \
+    --handler lambda.lambda_handler \
+    --role arn:aws:iam::"$ACCOUNT_ID":role/ToDoListRole \
+    --code S3Bucket=my-lambda-bucket-01,S3Key=lambda-essentials.zip
+```
+![Proof of Implementation](proof/api-gateway-images/lambda-function.png)
+
+To Create the DynamoDB table
+```
+aws dynamodb create-table \
+    --table-name "$TABLE_NAME" \
+    --attribute-definitions AttributeName="$PARTITION_KEY",AttributeType=S \
+    --key-schema AttributeName="$PARTITION_KEY",KeyType=HASH \
+    --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5
+```
+![Proof of Implementation](proof/api-gateway-images/DDB%20table.png)
+
+Creating Gateway REST API.
+```
+api_id=$(aws apigateway create-rest-api --name $API_GATEWAY_NAME)
+```
+(![Proof of Implementation](proof/api-gateway-images/api.png)
+
+
+Creating API Gateway resources.
+```
+root_resource_id=$(aws apigateway get-resources --rest-api-id $api_id)
+```
+![Proof of Implementation](proof/api-gateway-images/root-resource-id.png)
+
+Configuring POST method.
+```
+aws apigateway put-method --rest-api-id "$api_id" --resource-id "$resource_id" --http-method POST --authorization-type NONE
+```
+![Proof of Implementation](proof/api-gateway-images/post%20method.png)
+
+
+In my DynamoDB Table, I decided to create a dummy item for testing
+![Proof of Implementation](proof/api-gateway-images/dummy-item-1.png)
+![Proof of Implementation](proof/api-gateway-images/dummy-item-2.png)
+
+Furthermore, I was able to deploy my api after integrating it with the lambda function and enabling CORS for the POST method.
+```
+deployment_id=$(aws apigateway create-deployment --rest-api-id $api_id --stage-name prod)
+```
+![Proof of Implementation](proof/api-gateway-images/deployment.png)
+![Proof of Implementation](proof/api-gateway-images/console-deployment.png)
+
+
+After deployment, the next thing to do was test if the INVOKE URL was returning data to the DynamoDB Table. For this steps, I ensured to make use of Postman to send HTTP requests (POST)
+and testing my endpoint. 
+
+I executed my API invocation URL two times as part of a testing procedure to ensure its functionality and reliability.
+
+![Proof of Implementation](proof/api-gateway-images/item-test-2.png)
+![Proof of Implementation](proof/api-gateway-images/item-console-2.png)
+
+![Proof of Implementation](proof/api-gateway-images/item-test-3.png)
+![Proof of Implementation](proof/api-gateway-images/item-console-3.png)
+
+
+[API-GatewayScript](https://github.com/Firdous2307/AWS-Bash-Projects/blob/main/bin/API-Gateway/to_do_list)
+
+
+### Bonus Project: ECR Login Script
+
+## Description:
+This Bash script is designed to facilitate Docker image login to an Amazon Elastic Container Registry (ECR) using the AWS CLI and Docker. It uses AWS authentication credentials and environment variables to perform this task.
+
+[LoginScript](https://github.com/Firdous2307/AWS-Bash-Projects/blob/main/bin/ECR/login)
