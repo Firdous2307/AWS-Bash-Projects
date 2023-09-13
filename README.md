@@ -121,6 +121,9 @@ In this project, the bash script automates the creation and deployment of the se
 - I made sure to use environment variables to protect my credentials from being accessed by everyone.
 - In IAM, I had to select the appropriate permission policies for the role to be created which I named as `ToDoListRole`.
 
+![Proof of Implementation](proof/api-gateway-images/IAM.png)
+
+
 ## Challenges
  - Personally, I had to decide between creating a GET method to go with the POST method that I have already created, but I might revisit that later.
  - I had to also decide between using a task form which involved using `index.html`, `script.js`, and `style.css`. Therefore, I decided to test my API using Postman and it returned an item in the Dynamo DB Table.
@@ -130,8 +133,6 @@ In this project, the bash script automates the creation and deployment of the se
   ```
    --code S3Bucket=my-lambda-bucket-01,S3Key=lambda-essentials.zip
  ```
-
-![Proof of Implementation](proof/api-gateway-images/IAM.png)
 
 ## Proof of Implementation
 Before running the `bin/API-Gateway/to_do_list` script, I had to ensure that I stored environment variables of the following;
