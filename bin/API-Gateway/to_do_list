@@ -15,6 +15,7 @@ API_GATEWAY_NAME="$API_GATEWAY_NAME"
 # AWS DynamoDB table name
 DYNAMODB_TABLE_NAME="$TABLE_NAME"
 
+echo "Deploying Lambda function..."
 # Deploy Lambda function
 aws lambda create-function \
     --function-name "$FUNCTION_NAME" \
@@ -23,6 +24,11 @@ aws lambda create-function \
     --role arn:aws:iam::"$ACCOUNT_ID":role/ToDoListRole \
     --code S3Bucket=my-lambda-bucket-01,S3Key=lambda-essentials.zip
 
+# Sleep for a few seconds to allow DynamoDB table creation to complete
+sleep 5
+
+
+echo "Creating DynamoDB table..."
 # Create DynamoDB table
 aws dynamodb create-table \
     --table-name "$TABLE_NAME" \
@@ -30,27 +36,47 @@ aws dynamodb create-table \
     --key-schema AttributeName="$PARTITION_KEY",KeyType=HASH \
     --provisioned-throughput ReadCapacityUnits=5,WriteCapacityUnits=5
 
+# Sleep for a few seconds to allow DynamoDB table creation to complete
+sleep 5    
 
+
+echo "Creating Gateway REST API..."
 # Create a Gateway REST API
 api_id=$(aws apigateway create-rest-api --name $API_GATEWAY_NAME )
 
+# Sleep for a few seconds to allow API Gateway creation to complete
+sleep 5
 
+
+echo "Creating API Gateway resources..."
 # Get the root resource ID
 root_resource_id=$(aws apigateway get-resources --rest-api-id $api_id)
 
 # Creating a resource under the root resource
 resource_id=$(aws apigateway create-resource --rest-api-id $api_id --parent-id $root_resource_id --path-part addtask)
 
+# Sleep for a few seconds to allow resource creation to complete
+sleep 5
 
+echo "Configuring POST method..."
 #Creating a POST method for the resource
 aws apigateway put-method --rest-api-id "$api_id" --resource-id "$resource_id" --http-method POST --authorization-type NONE
 
+# Sleep for a few seconds to allow method creation to complete
+sleep 5
 
+
+echo "Integrating Lambda function..."
 # Integrate the Lambda function with POST method
 aws apigateway put-integration --rest-api-id "$api_id" --resource-id  "$resource_id" --http-method POST --type AWS \
     --integration-http-method POST --uri arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-2:"$AWS_ACCOUNT_ID":function:"$FUNCTION_NAME"/invocations
 
+# Sleep for a few seconds to allow integration to complete
+sleep 5
 
+
+echo "Deploying the API..."
 # Deploy the API
 deployment_id=$(aws apigateway create-deployment --rest-api-id $api_id --stage-name prod)
 
+echo "Deployment completed"
