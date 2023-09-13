@@ -222,7 +222,7 @@ I executed my API invocation URL two times as part of a testing procedure to ens
 [API-GatewayScript](https://github.com/Firdous2307/AWS-Bash-Projects/blob/main/bin/API-Gateway/to_do_list)
 
 
-### Bonus Project: ECR Login Script
+## Bonus Project: ECR Login Script
 
 ## Description:
 This Bash script is designed to facilitate Docker image login to an Amazon Elastic Container Registry (ECR) using the AWS CLI and Docker. It uses AWS authentication credentials and environment variables to perform this task.
